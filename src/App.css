@@ -1,0 +1,34 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.header {
+  text-align: center;
+}
+
+
+.todo-box {
+  width: 50%;
+}
+
+.todo-box input {
+  width: 300px;
+
+  padding: 10px;
+  margin: 10px 0;
+  box-sizing: border-box;
+}
+
+.todo-box button {
+
+  padding: 10px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  background-color: #4CAF50;
+  color: white;
+}
