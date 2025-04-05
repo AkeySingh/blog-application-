@@ -18,13 +18,14 @@ const BlogForm = () => {
   useEffect(() => {
     if (id) {
       axios
-        .get(`http://localhost:5000/api/blogs/${id}`, {
+        .get(`http://localhost:8000/Crud/singleView/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
-          setTitle(res.data.blog.title);
-          setDescription(res.data.blog.description);
-          setExistingImage(res.data.blog.image);
+          console.log(res.data);
+          setTitle(res.data.data.BlogTitle);
+          setDescription(res.data.data.BlogDescription);
+          setExistingImage(res.data.data.BlogImage);
         })
         .catch(() => setError("Failed to load blog data"));
     }
@@ -39,24 +40,28 @@ const BlogForm = () => {
     }
 
     const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    if (image) formData.append("image", image);
+    formData.append("BlogTitle", title);
+    formData.append("BlogDescription", description);
+    if (image) formData.append("BlogImage", image);
 
     try {
       if (id) {
         // Update blog
-        await axios.put(`http://localhost:5000/api/blogs/${id}`, formData, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axios.put(
+          `http://localhost:8000/Crud/updatePost/${id}`,
+          formData,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
       } else {
         // Create blog
-        await axios.post("http://localhost:5000/api/blogs", formData, {
+        await axios.post("http://localhost:8000/Crud/addBlog", formData, {
           headers: { Authorization: `Bearer ${token}` },
         });
       }
 
-      navigate("/dashboard");
+      navigate("/");
     } catch (err) {
       setError("Error submitting blog. Please try again.");
     }

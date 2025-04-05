@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
+
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -13,14 +14,16 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let url = "http://localhost:8000/Auth/login";
+    console.log(formData);
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        formData
-      );
+      const response = await axios.post(url, formData);
       if (response.data.token) {
+        console.log(response.data);
         localStorage.setItem("token", response.data.token);
-        navigate("/dashboard");
+        localStorage.setItem("userName", formData.email);
+
+        navigate("/");
       }
     } catch (err) {
       setError(err.response?.data?.message || "Login failed");

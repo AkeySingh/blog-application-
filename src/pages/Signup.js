@@ -14,6 +14,7 @@ const Signup = () => {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
+
     if (name === "profile") {
       setFormData({ ...formData, profile: files[0] });
     } else {
@@ -31,7 +32,7 @@ const Signup = () => {
 
       alert("called");
       const response = await axios.post(
-        "http://localhost:5000/api/auth/signup",
+        "http://localhost:8000/api/auth/RegisterEmp",
         data
       );
       if (response.data.success) {

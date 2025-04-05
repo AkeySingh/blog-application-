@@ -10,8 +10,10 @@ const ViewBlog = () => {
 
   const fetchBlog = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/api/blogs/${id}`);
-      setBlog(res.data.blog);
+      const res = await axios.get(
+        `http://localhost:8000/Crud/singleView/${id}`
+      );
+      setBlog(res.data.data);
     } catch (err) {
       setError("Failed to load blog");
     }
@@ -32,14 +34,14 @@ const ViewBlog = () => {
   return (
     <div className="card">
       <img
-        src={`http://localhost:5000/uploads/${blog.image}`}
+        src={blog.BlogImage}
         className="card-img-top"
-        alt={blog.title}
+        // alt={blog.BlogTitle}
         style={{ maxHeight: "400px", objectFit: "cover" }}
       />
       <div className="card-body">
-        <h3 className="card-title">{blog.title}</h3>
-        <p className="card-text">{blog.description}</p>
+        <h3 className="card-title">{blog.BlogTitle}</h3>
+        <p className="card-text">{blog.BlogDescription}</p>
         <button className="btn btn-secondary" onClick={() => navigate(-1)}>
           Go Back
         </button>

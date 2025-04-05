@@ -3,27 +3,22 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({ email: "", profile: "" });
   const [blogs, setBlogs] = useState([]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
+  const userName = localStorage.getItem("userName");
 
-  const fetchUserData = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/api/auth/me", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setUser(res.data.user);
-    } catch (err) {
-      setError("Failed to load user data");
-    }
-  };
+  // UserRouter.post("/addBlog", upload.single("BlogImage"), addPost);
+  // UserRouter.get("/getallBlog", allBlogPost);
+  // UserRouter.get("/singlePost/:id", SingleBlogPost);
 
   const fetchUserBlogs = async () => {
+    let url = `http://localhost:8000/Curd/singlePost/${userName}`;
     try {
-      const res = await axios.get("http://localhost:5000/api/blogs/user", {
+      const res = await axios.get("http://localhost:8000/Curd/get", {
         headers: { Authorization: `Bearer ${token}` },
       });
       setBlogs(res.data.blogs);
@@ -46,7 +41,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (!token) return navigate("/login");
-    fetchUserData();
+    // fetchUserData();
     fetchUserBlogs();
   }, []);
 
@@ -58,14 +53,14 @@ const Dashboard = () => {
 
       {user && (
         <div className="d-flex align-items-center mb-4">
+          <h5 className="m-4">{userName}</h5>
           <img
-            src={`http://localhost:5000/uploads/${user.profile}`}
+            src={`http://localhost:8000/uploads/${user.profile}`}
             alt="Profile"
             width="60"
             height="60"
             className="rounded-circle me-3"
           />
-          <h5 className="mb-0">{user.email}</h5>
         </div>
       )}
 

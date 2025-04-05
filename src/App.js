@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -11,7 +12,6 @@ import BlogList from "./pages/BlogList";
 function App() {
   return (
     <>
-      {/*  <Router> */}
       <Navbar />
       <div className="container mt-4">
         <Routes>
